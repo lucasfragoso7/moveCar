@@ -1,17 +1,25 @@
-import React, { Component } from 'react';
-import MapView , { AnimatedRegion , PROVIDER_GOOGLE } from 'react-native-maps';
-import {View } from 'react-native';
+import React, { Component , Fragment} from 'react';
+import MapView , { Marker , AnimatedRegion , PROVIDER_GOOGLE } from 'react-native-maps';
+import {View , Image} from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import Search from "../Search";
 import Geocoder from "react-native-geocoding";
 import Directions from '../Directions';
+import Details from '../Details'
 import {getPixelSize} from '../../utils';
+import {Back, LocationBox, LocationText, LocationTimeBox, LocationTimeText, LocationTimeTextSmall} from '../Map/styles'
+
+import backImage from '../../assets/back.png';
+import markerImage from '../../assets/marker.png';
 
 Geocoder.init("AIzaSyAm0iuy_6JBrDkVPI2NdUyVx1Wc2ksoOCk");
 
 export default class Map extends Component {
   state = {
     region: null,
+    destination: null,
+    duration: null,
+    location: null,
   }
 
   goToInitialLocation() {
@@ -19,6 +27,10 @@ export default class Map extends Component {
     initialRegion["latitudeDelta"] = 0.005;
     initialRegion["longitudeDelta"] = 0.005;
     this.mapView.animateToRegion(initialRegion, 2000);
+  }
+
+  handleBack = () => {
+    this.setState({destination : null})
   }
 
   handleLocationSelected = (data, { geometry }) => {
@@ -61,7 +73,7 @@ export default class Map extends Component {
   }
 
   render() {
-    const {region, destination}  = this.state;
+    const {region, destination, duration, location}  = this.state;
     console.log(destination)
     return <View style={{flex : 1}}>
     <MapView
@@ -73,23 +85,51 @@ export default class Map extends Component {
       ref={el => this.mapView = el}
       >
         {destination && (
-          <Directions
-            origin={region}
-            destination={destination}
-            onReady = {(result) =>{
-              this.mapView.fitToCoordinates(result.coordinates, {
-                edgePadding:{
-                  right: getPixelSize(50),
-                  left: getPixelSize(50),
-                  top: getPixelSize(50),
-                  bottom: getPixelSize(350)
-                }
-              })
-            }}
+          <Fragment>
+            <Directions
+              origin={region}
+              destination={destination}
+              onReady = {(result) =>{
+                this.setState({duration: Math.floor(result.duration)})
+                this.mapView.fitToCoordinates(result.coordinates, {
+                  edgePadding:{
+                    right: getPixelSize(50),
+                    left: getPixelSize(50),
+                    top: getPixelSize(50),
+                    bottom: getPixelSize(350)
+                  }
+                })
+              }}
           />
-        )}
+          <Marker coordinate={destination} anchor={{ x: 0, y:0}} image={markerImage} >
+              <LocationBox>
+                <LocationText>
+                  {destination.title}
+                </LocationText>
+              </LocationBox>
+          </Marker>
+
+          <Marker coordinate={region} anchor={{ x: 0, y:0}}>
+              <LocationBox>
+                <LocationTimeBox>
+                  <LocationTimeText>{duration}</LocationTimeText>
+                  <LocationTimeTextSmall>Min</LocationTimeTextSmall>
+                </LocationTimeBox>
+                <LocationText>{location}</LocationText>
+              </LocationBox>
+          </Marker>
+        </Fragment>
+      )}
     </MapView>
-    <Search onLocationSelected={this.handleLocationSelected} />
+    {destination ? 
+    (<Fragment>
+      <Back onPress={this.handleBack}>
+        <Image source={backImage}/>
+      </Back>
+      <Details/> 
+    </Fragment>) :
+    (<Search onLocationSelected={this.handleLocationSelected}/>)
+  }
   </View>;
   }
 }
