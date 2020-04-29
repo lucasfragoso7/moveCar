@@ -19,11 +19,11 @@ export default class Details extends Component {
         <TypeDescription>Viagens baratas para o dia a dia</TypeDescription>
 
         <TypeImage source={uberx} />
-        <TypeTitle>MoveCar</TypeTitle>
+        <TypeTitle>VipTryp</TypeTitle>
         <TypeDescription>R$6,00</TypeDescription>
 
         <RequestButton onPress={() => {}}>
-          <RequestButtonText>SOLICITAR MOVEAUTO</RequestButtonText>
+          <RequestButtonText>SOLICITAR VIPTRYP</RequestButtonText>
         </RequestButton>
       </Container>
     );

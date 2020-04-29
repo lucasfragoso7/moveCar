@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Map from './components/Map'
+import Navigation from './components/Navigation'
 
-const App = () =>  <Map/>
+const App = () =>  <Navigation/>
 
 export default App

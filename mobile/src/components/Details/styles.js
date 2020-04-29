@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  background: #fff;
+  background: #73717e;
   height: 300px;
   width: 100%;
   position: absolute;
@@ -18,11 +18,11 @@ export const Container = styled.View`
 
 export const TypeTitle = styled.Text`
   font-size: 20px;
-  color: #222;
+  color: #FFF;
 `;
 
 export const TypeDescription = styled.Text`
-  color: #666;
+  color: #FFF;
   font-size: 14px;
 `;
 
@@ -32,7 +32,7 @@ export const TypeImage = styled.Image`
 `;
 
 export const RequestButton = styled.TouchableOpacity`
-  background: #222;
+  background: #4c3973;
   justify-content: center;
   align-items: center;
   height: 44px;
