@@ -45,9 +45,7 @@ export default class Login extends Component {
                     </Text>
                 </View>
                 <View style={styles.container_links}>
-                    <SocialIcon type='google' />
-                    <SocialIcon type='facebook' />
-                    <SocialIcon type='apple' />
+    
                 </View>
 
             </KeyboardAvoidingView>

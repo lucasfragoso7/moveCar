@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Navigation from './components/Navigation'
+import Login from './components/Login'
 
-const App = () =>  <Navigation/>
+const App = () =>  <Login/>
 
 export default App
