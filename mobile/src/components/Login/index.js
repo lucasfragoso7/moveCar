@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Image, KeyboardAvoidingView, StyleSheet, TextInput, TouchableOpacity, Text, Platform, View } from 'react-native';
+import { Image, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import apple_image from '../../assets/apple.png';
+import facebook_image from '../../assets/facebook.png';
+import google_image from '../../assets/google.png';
 import logo from '../../assets/icon.png';
 
 
@@ -15,7 +18,6 @@ export default class Login extends Component {
                 behavior='padding'
                 enabled={Platform.OS === 'ios'}
                 style={styles.container}>
-
                 <Image source={logo} />
                 <TextInput
                     autoCapitalize="none"
@@ -45,9 +47,16 @@ export default class Login extends Component {
                     </Text>
                 </View>
                 <View style={styles.container_links}>
-    
-                </View>
+                    <Image style={styles.linksText} source={facebook_image} />
+                    <Image style={styles.linksText} source={google_image} />
+                    <Image style={styles.linksText} source={apple_image} />
 
+
+
+                </View>
+                <Text>
+                    Ao se inscrever, você concorda com nossos Termos e Condiçôes
+                </Text>
             </KeyboardAvoidingView>
         )
     }
@@ -58,7 +67,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
-        justifyContent: "center",
+        justifyContent: "space-between",
         alignItems: "center",
         padding: 30
 
@@ -69,7 +78,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         borderWidth: 1,
         borderColor: '#ddd',
-        borderRadius: 4,
+        borderRadius: 20,
         marginTop: 20,
         paddingHorizontal: 15,
     },
